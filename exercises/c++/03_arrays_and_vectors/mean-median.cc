@@ -57,8 +57,7 @@ int main() {
   mean = sum / temperatures.size();
   cout << setw(9) << "mean: " << setprecision(7) << mean << endl;
 
-
-  int midpoint_floor = temperatures.size() / 2; // Q: cannot use {} initializer...
+  int midpoint_floor = temperatures.size() / 2; // Q: cannot use {} initializer; why?
   int midpoint_ceiling = midpoint_floor + 1;
   median = (temperatures.at(midpoint_floor) + temperatures.at(midpoint_ceiling)) / 2;
 
