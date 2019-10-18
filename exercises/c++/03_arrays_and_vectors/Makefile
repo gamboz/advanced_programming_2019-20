@@ -1,5 +1,6 @@
 SRC = matrix-transpose.cc \
-	argv-to-types.cc
+	argv-to-types.cc \
+	mean-median.cc
 
 CXX = c++
 CXXFLAGS = -Wall -Wextra -g -std=c++14
