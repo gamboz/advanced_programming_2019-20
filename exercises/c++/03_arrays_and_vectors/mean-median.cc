@@ -23,12 +23,20 @@
 #include <iomanip>
 #include <vector>
 #include <algorithm>
+#include <sstream>
 
 using namespace std;
 
-int main() {
+int main(int argc, char** argv) {
   double temp {};
-  std::ifstream infile("temperatures.txt");
+  // std::ifstream infile("temperatures.txt");
+  string filename = "temperatures.txt";
+  if (argc == 2) {
+    istringstream is{argv[1]};
+    is >> filename;
+  }
+
+  ifstream infile = ifstream(filename);
 
   vector<double> temperatures {};
   // Q: is it more expensive to find the initial number of tokens and size the vector thus
@@ -57,9 +65,16 @@ int main() {
   mean = sum / temperatures.size();
   cout << setw(9) << "mean: " << setprecision(7) << mean << endl;
 
-  int midpoint_floor = temperatures.size() / 2; // Q: cannot use {} initializer; why?
-  int midpoint_ceiling = midpoint_floor + 1;
-  median = (temperatures.at(midpoint_floor) + temperatures.at(midpoint_ceiling)) / 2;
+  if (temperatures.size() % 2 == 1) {
+    median = temperatures.at(temperatures.size()/2);
+  } else {
+    // according to wikipedia, median of odd-size groups is between
+    // the the midpoint floor and ceil
+    int midpoint_ceiling = temperatures.size() / 2; // Q: cannot use {} initializer; why?
+    int midpoint_floor = midpoint_ceiling - 1;
+
+    median = (temperatures.at(midpoint_floor) + temperatures.at(midpoint_ceiling)) / 2;
+  }
 
   cout << setw(9) << "median: " << setprecision(7) << median << endl;
 }
