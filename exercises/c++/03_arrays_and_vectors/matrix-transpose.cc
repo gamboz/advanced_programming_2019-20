@@ -23,17 +23,19 @@ using namespace std;
 // transpose a matrix
 void transpose(array<double, 10>&, int rows, int cols);
 
+// cout a matrix
+void print_matrix(array<double, 10>&, int rows, int cols);
+
+
 int main () {
   array<double,10> ma{1, 2, 3, 4, 5,
                       6, 7, 8, 9, 0};
 
   transpose(ma, 2, 5);
-  //TODO cout
 }
 
 
 void transpose(array<double, 10>& ma, int rows, int cols){
-
 
   // transposed = 1, 6
   //              2, 7
@@ -41,53 +43,45 @@ void transpose(array<double, 10>& ma, int rows, int cols){
   //              4, 9
   //              5, 0
 
-  // 0,0 (0)   →  0,0 (0)
-  // 0,1 (1)   →  1,0 (2)
-  // 0,2 (2)   →  2,0 (4)
-  // 0,3 (3)   →  3,0 (6)
-  // 0,4 (4)   →  4,0 (8)
-  // 1,0 (5)   →  0,1 (1)
-  // 1,1 (6)   →  1,1 (3)
-  // 1,2 (7)   →  2,1 (5)
-  // 1,3 (8)   →  3,1 (7)
-  // 1,4 (9)   →  4,1 (9)
-
-
+  // 0,0 (1)   →   0,0
+  // 0,1 (2)   →   1,0
+  // 0,2 (3)   →   2,0
+  // 0,3 (4)   →   3,0
+  // 0,4 (5)   →   4,0
+  // 1,0 (6)   →   0,1
+  // 1,1 (7)   →   1,1
+  // 1,2 (8)   →   2,1
+  // 1,3 (9)   →   3,1
+  // 1,4 (0)   →   4,1
 
   auto transposed{ma};
 
   cout << "given matrix:" << endl;
-  for (int r{0}; r<rows; r++){
-    for (int c{0}; c<cols; c++){
-      cout << ma[cols*r + c] << " ";
-    }
-    cout << endl;
-  }
+  print_matrix(ma, rows, cols);
 
-
+  // transpose
   for (int i {0}; i < rows; i++){
     for (int j{0} ; j<cols ; j++){
       transposed[j * rows + i] = ma[i * cols + j];
     }
   }
 
-  cout << "transposed: " << endl;
-  for (int r{0}; r<cols; r++){
-    for (int c{0}; c<rows; c++){
-      cout << transposed[rows*r + c] << " ";
-    }
-    cout << endl;
-  }
+  cout << "transposed in another matrix: " << endl;
+  print_matrix(transposed, cols, rows);
 
   cout << "swapping..." << endl;
   swap(ma, transposed);
 
   cout << "original matrix now transposed:" << endl;
-  for (int r{0}; r<cols; r++){
-    for (int c{0}; c<rows; c++){
-      cout << ma[rows*r + c] << " ";
+  print_matrix(ma, cols, rows);
+}
+
+
+void print_matrix(array<double, 10>& ma, int rows, int cols) {
+  for (int r{0}; r<rows; r++){
+    for (int c{0}; c < cols; c++) {
+      cout << ma[cols * r + c] << " ";
     }
     cout << endl;
   }
-
 }
