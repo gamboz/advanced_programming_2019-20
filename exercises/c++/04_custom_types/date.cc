@@ -66,9 +66,10 @@
 #include <string>
 
 using std::cout;
+using std::endl;
 
 enum class Month {
-                  jan = 31,
+                  jan, // jan = 31,... nope
                   feb,
                   mar,
                   apr,
@@ -128,6 +129,7 @@ public:
     _month{month},
     _day{day}
   {
+    // TODO: verify date (i.e. no February 31)
   }
 };
 
@@ -142,15 +144,16 @@ void Date::add_one_day(){
 
   _day++;
 
-  unsigned short max = 30;
+  unsigned short max{30};
+
   switch (_month) {
   case Month::jan:
-    // Month::mar:
-    // Month::may:
-    // Month::jul:
-    // Month::aug:
-    // Month::oct:
-    // Month::dec:
+    case Month::mar:
+    case Month::may:
+    case Month::jul:
+    case Month::aug:
+    case Month::oct:
+    case Month::dec:
     max = 31;
     break;
   case Month::feb:
@@ -161,12 +164,13 @@ void Date::add_one_day(){
     break;
     }
 
+
   if (_day > max){
     _day = 1;
     if (_month == Month::dec) {
       _year++;
     }
-    _month++;
+    _month++; // dec+1 = jan  (because of way ++ has been overloaded)
   }
 
 }
@@ -228,16 +232,98 @@ std::ostream& operator<<(std::ostream& os, const Date& d) {
   return os;
 }
 
+// ## Helper functions
+// Implement the following external helper functions (i.e., they are not part of the class):
+// - `bool operator==(const Date& lhs, const Date& rhs);`
+// - `bool operator!=(const Date& lhs, const Date& rhs);`
+// - `std::ostream& operator<<(std::ostream& os, const Date& d);`
+// - **optional** `bool is_leap(const int y);`
+
+// *Hints*:
+// - a year is leap if it is divisible by 4. If it is also divisible by 100 is not leap. However, it is leap if it is divisible by 400.
+// - try to avoid code duplication
+
+// overload == for two Dates
+bool operator==(const Date& lhs, const Date& rhs){
+  if (lhs.year() == rhs.year()
+      and lhs.month() == rhs.month()
+      and lhs.day() == rhs.day()) {
+    return true;
+  } else {
+    return false;
+  }
+}
+bool operator!=(const Date& lhs, const Date& rhs){
+  return ! (lhs == rhs);
+}
+
+
+// leap year
+bool is_leap(const int y){
+  // a year is leap if it is divisible by 4. If it is also divisible
+  // by 100 is not leap. However, it is leap if it is divisible by
+  // 400.
+  if (y % 4 == 0) {
+    if (y % 100 == 0){
+      if (y % 400 == 0){
+        return true;
+      } else {
+        return false;
+      }
+    } else {
+      // divibile per 4 ma non per 100  →  leap
+      return 100;
+    }
+  } else {
+    // NON divisible solo per 4 → NON leap
+    return false;
+  }
+}
 
 int main() {
-  Date x{2000, Month::jan, 2};
+  cout << "\n## Class Date\n\n";
+
+  Date x{2000, Month::jan, 29};
   cout <<x <<std::endl;
-  x.add_days(11);
+  x.add_days(2);
   cout <<x <<std::endl;
 
   Date y{2000, Month::mar, 29};
   cout <<y <<std::endl;
   y.add_days(2);
   cout <<y <<std::endl;
+
+  Date z{2000, Month::dec, 29};
+  cout <<z <<std::endl;
+  z.add_days(2);
+  cout <<z <<std::endl;
+
+  cout << "\n## noperator== (followed by !=)\n\n";
+
+  cout << "x == x?\n"
+       << (x == x)
+       << (x != x)
+       << endl;
+
+  cout << "x == y?\n"
+       << (x == y)
+       << (x != y)
+       << endl;
+
+  Date xprime{2000, Month::jan, 31};
+  cout << "x == xprime?\n"
+       << (x == xprime)
+       << (x != xprime)
+       << endl;
+
+  cout << "\n## Leap years\n\n";
+  // x.year() is unsigned short, automagically casted into int
+  cout << x.year() << ": " << is_leap(x.year()) << endl;
+
+  int years[6]{1, 4, 100, 400, 500, 404};
+  //           0  1    0    1    0    1
+  for(auto y: years){
+      cout << y << ": " << is_leap(y) << endl;
+  }
 
 }
