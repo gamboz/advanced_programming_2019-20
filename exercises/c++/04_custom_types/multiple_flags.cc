@@ -1,6 +1,16 @@
 #include <iostream>
 
-enum class flags : unsigned int {
+// next two enum definitions give no difference in output...
+// is it something like the following?
+// unsigned int 1 = 0000 0001
+// (signed) int 1 = 1000 0001
+
+// if so, with (signed) int I could have less options
+// and a "spurious" plus/minus flag
+// (that would not invalidate my results anyway)
+
+// enum class flags : unsigned int {
+enum class flags {
   flag1 = 1,
   flag2 = 2,
   flag3 = 4,
@@ -18,6 +28,16 @@ enum class flags : unsigned int {
 void do_complicated_stuff(flags flags);
 
 flags operator|(const flags f1, const flags f2);
+
+// should return "unsigned int" instead of "flags"
+// for instance: 1 | 2 = 3
+// 0001 |
+// 0010
+// ----
+// 0011 (which is NOT a flag)
+
+// Q: what do | and & do?
+
 
 unsigned int operator&(const flags f1, const flags f2);
 
@@ -44,14 +64,18 @@ int main() {
             << "expected flag3 and flag5 \n\n";
   do_complicated_stuff(flags::flag5);
 
+  std::cout << "flags combination: " << (flags::flag1 & flags::flag2) << std::endl;
+
   return 0;
 }
 
+// bitwise OR
 flags operator|(const flags f1, const flags f2) {
   return static_cast<flags>(static_cast<unsigned int>(f1) |
                             static_cast<unsigned int>(f2));
 }
 
+// bitwise AND
 unsigned int operator&(const flags f1, const flags f2) {
   return static_cast<unsigned int>(static_cast<unsigned int>(f1) &
                                    static_cast<unsigned int>(f2));
