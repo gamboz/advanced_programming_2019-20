@@ -1,13 +1,22 @@
+
+// ## C++14
+
+// Modify the class `Vector<typename T>` presented during the lecture exploiting all the of C++14 features you know. Can you see any benefit?
+
+// *Hints*:
+
+// - remember to compile with `-std=c++14`
+
 #include <iostream>
 #include <string>
 
-template <typename num>
+template <typename T>
 class Vector {
-  num* elem;
+  T* elem;
   std::size_t _size;
 
  public:
-  Vector(const std::size_t size) : elem{new num[size]}, _size{size} {}
+  Vector(const std::size_t size) : elem{new T[size]}, _size{size} {}
 
   // automatically release the acquired memory
   ~Vector() { delete[] elem; }
@@ -15,10 +24,10 @@ class Vector {
   // try to remove the const and recompile
   std::size_t size() const { return _size; }
 
-  num& operator[](const std::size_t i) { return elem[i]; }
+  T& operator[](const std::size_t i) { return elem[i]; }
 
   // try to comment this line and recompile
-  const num& operator[](const std::size_t i) const { return elem[i]; }
+  const T& operator[](const std::size_t i) const { return elem[i]; }
 };
 
 template <typename T>
