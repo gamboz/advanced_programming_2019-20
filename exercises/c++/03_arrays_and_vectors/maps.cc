@@ -137,6 +137,12 @@ void use_vector(ifstream& infile, ofstream& outfile){
   outfile.close();
 }
 
+template <typename T>
+void use_maps(ifstream &infile, ofstream &outfile, const T& map) {
+  cout << "MAPS" << endl;
+  // ???
+}
+
 void use_map(ifstream &infile, ofstream &outfile) {
   map<string,int> words;
   string temp {};
