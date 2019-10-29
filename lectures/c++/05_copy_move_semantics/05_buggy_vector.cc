@@ -4,6 +4,11 @@
 template <typename T>
 class Vector {
   std::unique_ptr<T[]> elem;
+  // get
+  // reset
+  // release
+
+  
   std::size_t _size;
 
  public:

@@ -41,6 +41,9 @@ class Vector {
   /////////////////////////
   // move semantics
 
+  // x&   L-value reference (can stay only on the left-hand-side of the =)
+  // x&&  R-value reference (can stay both sides) (it is going to die)
+  
   // move ctor
   Vector(Vector&& v) : _size{std::move(v._size)}, elem{std::move(v.elem)} {
     std::cout << "move ctor\n";
@@ -93,7 +96,9 @@ Vector<T>& Vector<T>::operator=(const Vector& v) {
   elem.reset();              // first of all clean my memory
   auto tmp = v;              // then use copy ctor
   (*this) = std::move(tmp);  // finally move assignment
+  // first dereference "this" so that overloaded operator apply
 
+  
   // or we do everything by hand..
   // and we can do not reset and call new again if the sizes are suitable
 
@@ -167,6 +172,8 @@ int main() {
   std::cout << "v4 = " << v4;
 
   std::cout << "\nNRVO: Named Return Value Optimization\n";
+  // compiler optimization:
+  // 
 
   std::cout << "\nv4 = v3 + v3 + v2 + v3; calls\n";
   v4 = v3 + v3 + v2 + v3;

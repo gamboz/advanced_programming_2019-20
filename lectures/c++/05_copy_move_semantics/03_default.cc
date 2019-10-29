@@ -5,13 +5,15 @@ struct X {
   double b;
   char c = 'a';
   X() = default;  // in-class initializers are used by the constructors
+  X(bool b) { std::cout << "ciao\n"; }
 };
 
 struct Y {
   int a = 77;
   double b;
   char c = 'a';
-  Y() : a{5} {}  // what it is written here wins the in-class initialization
+  X x;
+  Y() : a{5}, x{true} {}  // what it is written here wins the in-class initialization
   Y(const Y&) = delete;
 };
 
