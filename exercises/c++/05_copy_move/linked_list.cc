@@ -240,21 +240,33 @@ class List {
 
 template <class T>
 void List<T>::insert(T&& v, const Insertion_method m){
+  // create a new Node with v as value
+  cout << v << endl;
   switch (m) {
   case Insertion_method::push_front:
     cout << "push front\n";
+    break;
+  case Insertion_method::push_back:
+    cout << "push back\n";
+    break;
   default:
     cout << "ERROR\n";
+    break;
   }
 }
 
 template <class T>
-void insert(const T& v, const Insertion_method m){
+void List<T>::insert(const T& v, const Insertion_method m){
   switch (m) {
   case Insertion_method::push_front:
     cout << "push front\n";
+    break;
+  case Insertion_method::push_back:
+    cout << "push back\n";
+    break;
   default:
     cout << "ERROR\n";
+    break;
   }
 }
 
@@ -289,20 +301,25 @@ std::ostream& operator<<(std::ostream& os, const List<T>& l){
   return os;
 }
 
-
+#define LINEA cout << endl << "-------------" << endl << endl;
 
 int main() {
   cout << "l{}:\n";
   List<int> l{};
   cout << l << endl;
 
+  LINEA
 
   cout << "l{1}:\n";
   List<int> ll{1};
   cout << ll << endl;
 
+  LINEA
+    
   cout << "l{1} + push_front(2):\n";
   List<int> lll{1};
   lll.insert(2, Insertion_method::push_front);
   cout << lll << endl;
+
+  LINEA
 }
