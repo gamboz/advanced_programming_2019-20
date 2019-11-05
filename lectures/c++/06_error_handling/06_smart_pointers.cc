@@ -3,6 +3,12 @@
 
 #include "ap_error.h"
 
+// unique_ptr have a destructor that will take care of releasing
+// the memory when the ptr goes out of scope
+
+// Code is much cleaner
+
+
 class Vector {
   std::unique_ptr<double[]> elem;
 
@@ -10,6 +16,12 @@ class Vector {
   Vector(const unsigned int l) : elem{new double[l]} {
     std::cout << "Vector ctor\n";
   }
+
+  // "noexcept" is a (positional) keyword that tells the compiler that
+  // the function does not throw exceptions;
+
+  // makes the code faster because the compiler does not add the
+  // try/catch infrastructure in the function
   double& operator[](const unsigned int i) noexcept {
     return elem[i];
   }  // you can use smart pointers almost like raw pointers

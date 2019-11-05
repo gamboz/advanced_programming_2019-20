@@ -110,6 +110,7 @@ namespace internal {
       return *this;
     }
 
+    // (*basic_manipulator)(...) is a "function pointer"
     inline MessageHandler& operator<<(
         std::ostream& (*basic_manipulator)(std::ostream&)) {
       _os << basic_manipulator;

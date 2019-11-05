@@ -29,11 +29,15 @@ int main() {
               << "This means there is a bug in the algorithm that generated "
                  "this number.\n";
     return 2;
+
+    // syntax for unknown exception
   } catch (...) {
     std::cerr << "Unknown exception. Aborting.\n";
     return 3;
   }
 }
+
+// struct Pippo {};
 
 double square_root(const double d) {
   // test the pre-conditions
@@ -41,5 +45,7 @@ double square_root(const double d) {
     throw Negative_number{};
   if (d > 50)
     throw Bigger_than_expected{};
+
+  // throw Pippo{};
   return std::sqrt(d);
 }

@@ -28,10 +28,23 @@ int main() {
 
 double square_root(const double d) {
   // test the pre-conditions
-  assert(d >= 0 && d <= 50);  // provided by C, no execeptions
+  // assert(d >= 0 && d <= 50);  // provided by C, no execeptions
+  
+  // assert are macros that can be turned on/off
+  // g++ x.c -DNDEBUG ...
+  // will turn asserts OFF
 
-  // AP_ASSERT(d>=0 && d<=50) <<  "d should be in the range [0,50]";
+  AP_ASSERT(d>=0 && d<=50) <<  "d should be in the range [0,50]";
 
+  // assert VS errors/exceptions
+  // use assert only on internal logic
+  // exceptions are to be use on input and such
+
+  // Bugs:
+  // . found by the compiler
+  // . internal logic (assert)
+  // . all runs fine but the results are wrong (... no general solution)
+  
   // AP_ASSERT_IN_RANGE(d,0,50);
   return sqrt(d);
 }

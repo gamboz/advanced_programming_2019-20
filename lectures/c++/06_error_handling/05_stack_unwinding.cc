@@ -76,3 +76,12 @@ int main() {
   delete[] raw_ptr;  // <---
   return 0;
 }
+
+// NB: do not use raw pointers,
+//     but use smart pointers:
+
+//     unique_ptr (unique ownership; only one responsible for deleting
+//     the memory); as fast as raw pointers
+
+//     shared_ptr (viceversa) they know how many share the the pointer
+//     (and implement a counter); they are slower
