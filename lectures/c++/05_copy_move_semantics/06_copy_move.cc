@@ -14,11 +14,19 @@ class Vector {
     std::cout << "custom ctor\n";
   }
 
-  // Vector(const std::initializer_list<T> args)
-  //     : _size{args.size()}, elem{new T[_size]} {
-  //   std::cout << "list ctor\n";
-  //   std::copy(args.begin(), args.end(), begin());
-  // }
+  // highest-priority constructor
+  // for
+  // v{1, 2, 3, ...}
+  // the following would be ambiguous otherwise:
+  // v{1}
+  // the initialization with initializer_list
+  // is called only with {}
+  // not with ()
+  Vector(const std::initializer_list<T> args)
+      : _size{args.size()}, elem{new T[_size]} {
+    std::cout << "list ctor\n";
+    std::copy(args.begin(), args.end(), begin());
+  }
 
   // default ctor
   Vector() { std::cout << "default ctor\n"; }  // _size uninitialized
@@ -43,7 +51,7 @@ class Vector {
 
   // x&   L-value reference (can stay only on the left-hand-side of the =)
   // x&&  R-value reference (can stay both sides) (it is going to die)
-  
+
   // move ctor
   Vector(Vector&& v) : _size{std::move(v._size)}, elem{std::move(v.elem)} {
     std::cout << "move ctor\n";
@@ -98,7 +106,7 @@ Vector<T>& Vector<T>::operator=(const Vector& v) {
   (*this) = std::move(tmp);  // finally move assignment
   // first dereference "this" so that overloaded operator apply
 
-  
+
   // or we do everything by hand..
   // and we can do not reset and call new again if the sizes are suitable
 
@@ -173,7 +181,7 @@ int main() {
 
   std::cout << "\nNRVO: Named Return Value Optimization\n";
   // compiler optimization:
-  // 
+  //
 
   std::cout << "\nv4 = v3 + v3 + v2 + v3; calls\n";
   v4 = v3 + v3 + v2 + v3;
