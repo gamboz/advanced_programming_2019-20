@@ -2,6 +2,7 @@
 #include <iostream>
 #include <vector>
 
+// struct: default visibility is public
 struct Point_s {
   double x;
   double y;
@@ -12,6 +13,7 @@ void Point_s::print() {
   std::cout << "Structure. x = " << x << "; y = " << y << std::endl;
 }
 
+// class: default visibility is private
 class Point_c {
   double x;
   double y;
@@ -21,6 +23,7 @@ class Point_c {
     std::cout << "Class. x = " << x << "; y = " << y << std::endl;
   }  // note no ; at the end
 };   // note ; at the end
+
 
 int main() {
   Point_s ps;

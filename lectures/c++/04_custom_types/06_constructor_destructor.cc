@@ -6,11 +6,13 @@ struct Foo {
   double _d;
   std::string _s;
 
+  // constructor: function without return type
   Foo(const int i, const double d,
       const std::string& s);  // custom constructor
 
   Foo();  // default constructor
 
+  // "~" + no return type & no arguments
   ~Foo();  // destructor
 };
 
@@ -18,7 +20,13 @@ Foo::Foo(const int i, const double d, const std::string& s)
     : _i{i},
       _d{d},
       _s{s}
-// _i, _d, _s must be initialized in the same order they have been declared
+      // if you need, build/initialize member variables here
+      // NOT in the body
+
+      // no "=" here
+
+      // _i, _d, _s must be initialized in the same order they have
+      // been declared
 
 {
   std::cout << "custom ctor\n";
@@ -27,6 +35,9 @@ Foo::Foo(const int i, const double d, const std::string& s)
   // don't use {} because this notation is reserved for the
   // construction of the variables and at this point they have already
   // been constructed
+
+  // _i{i}; // compile error
+  // _i = i;  // two operations: construct the object & copy the data
 }
 
 Foo::Foo() {
@@ -34,11 +45,14 @@ Foo::Foo() {
 }
 
 Foo::~Foo() {
-  std::cout << "dtor\n";
+  std::cout << "dtor " << _i << "\n";
 }
 
+
+// overload the operator "<<"
+// must be defined outside the class
 std::ostream& operator<<(std::ostream& os, const Foo& f) {
-  os << f._i << " " << f._d << " " << f._s << std::endl;
+  os << "🦄 " << f._i << " " << f._d << " " << f._s << std::endl;
   return os;
 }
 
@@ -47,9 +61,14 @@ int main() {
   Foo f1{};  // call default ctor
   // Foo f2(); // compiler error
 
-  Foo f2{8, 2.2, "hello"};
-  std::cout << "f0: " << f0 << "f1: " << f1 << "f2: " << f2 << std::endl;
+  Foo f2{3, 3.3, "picio"};
+  std::cout <<
+    "f0: " << f0 <<
+    "f1: " << f1 <<
+    "f2: " << f2 <<
+    std::endl;
 
+  // f0.~Foo();
   // the destructor is called when the variable goes out of scope
   return 0;
 }

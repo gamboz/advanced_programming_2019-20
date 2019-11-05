@@ -1,5 +1,6 @@
 #include <cmath>
 #include <iostream>
+#include <iterator>
 
 #if __cplusplus > 201103L
 
@@ -12,10 +13,14 @@ auto init(const std::size_t l) {
 
 template <class T>
 T* init(const std::size_t l) {
+  // return new array of type T
+  // with all slots initialized to 0 by {}
   return new T[l]{};
 }
 
 #endif
+
+template <typename T> void debug(T);
 
 int main() {
   auto b = true;          // a bool
@@ -30,6 +35,14 @@ int main() {
     std::cout << i << std::endl;
 
   auto pb = &b;  // guess what.. How can I know?
+  //  debug(pb);
+  std::cout << pb<<std::endl;
+
+  auto pch = &ch;
+  std::cout << pch <<std::endl;
+
+  auto pi = &i;
+  std::cout << pi <<std::endl;
 
   auto ps = init<double>(11);
   delete[] ps;

@@ -1,6 +1,6 @@
 #include <iostream>
 
-enum color { red, yellow, green };
+enum color { red, yellow, green }; // NO unicode , 💩
 // enum color{red=0, yellow=1, green=2}; // equivalent
 
 void dwim(const color c) {
@@ -21,7 +21,7 @@ void dwim(const color c) {
 }
 
 int main() {
-  color opt{red};
+  color opt{red}; // {} ← generic inizialization
   // opt = 3; // cannot assign int to enum
   int a{opt};  // but they implicitly converts to integers
 
@@ -30,9 +30,12 @@ int main() {
   dwim(yellow);
 
   // dwim(2); // error
+  dwim(static_cast<color>(red));
+
   dwim(color(2));  // works but why you may want to write this?
 
   dwim(color(6));  // ???
 
+  // dwim(💩);
   return 0;
 }

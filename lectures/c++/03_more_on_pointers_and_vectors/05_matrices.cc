@@ -1,5 +1,6 @@
 #include <iomanip>
 #include <iostream>
+#include <typeinfo>
 
 void print_ma(int m[][5], int dim1);  // ugly and not flexible
 // void print_ma(int m[][], int dim1, int dim2); // error second
@@ -23,6 +24,14 @@ int main() {
 
   for (int i = 0; i < 6; ++i) {
     for (int j = 0; j < 5; ++j)
+      std::cout << &ma[i][j] << " ";
+    std::cout << std::endl;
+  }
+
+  // std::cout << "type of ma: "<< std::type_info(ma) << std::end;
+
+  for (int i = 0; i < 10; ++i) {
+    for (int j = 0; j < 3; ++j)
       std::cout << &ma[i][j] << " ";
     std::cout << std::endl;
   }

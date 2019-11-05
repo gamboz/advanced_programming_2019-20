@@ -11,7 +11,7 @@ int main() {
 
   char** ppc;
 
-  int* ap[7];
+  int* ap[7]; // array of pointers to integer
 
   void* pv{pi};
   // *pv; // we cannot dereference void*
@@ -62,11 +62,13 @@ int main() {
   else
     std::cout << "different\n";
 
+  // pointer to a function that return int and take const char* as parameter
   int (*fp)(const char*);
   fp = func1;
 
   fp("hello");
 
+  // equivalent to the above (only more readable)
   fp = &func2;
   fp("world");
 
@@ -75,6 +77,7 @@ int main() {
 
   xx("auto");
 
+  // same as auto, but can be used in templates
   decltype(&func3) x = func3;
   x("decltype");
 
