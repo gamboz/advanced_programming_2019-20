@@ -37,8 +37,11 @@ std::ostream& operator<<(std::ostream& os, const Vector<T>& v) {
   return os;
 }
 
-// overload the operator: (range-for-loop)
-// iterator& operator:(const Vector<T>& v){}
+// overload what's needed for range-for-loop
+// v.begin()
+// v.end()
+// *v
+//
 
 int main() {
   Vector<double> v{10};
