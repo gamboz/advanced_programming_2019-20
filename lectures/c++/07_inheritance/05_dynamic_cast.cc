@@ -65,6 +65,16 @@ void print_animal(const Animal& a) noexcept {
   // dynamic_cast is used to know the real type of the object
   if (dynamic_cast<const DangerousSnake*>(&a))
     std::cout << "call 911...\n";
+
+  // dynamic_cast work with pointers and references only
+  // because runtime polimorphism works with p&r
+
+  // if dynamic_cast succeds, I know the type that I have
+
+  // can also be done with templates
+  // which is generally better (no runtime penalties)
+  // even if can lead to some code duplication
+  
 }
 
 int main() {

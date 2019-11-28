@@ -17,6 +17,24 @@ struct Animal {
   }
 };
 
+// inheritance (public inheritance) →   xxx : public yyy
+// xxx IS A yyy (different from object composition with maps the "HAS A" verb)
+// yyy is the parent or base class or the super class
+// xxx is the child or the derived class
+
+// only public and protected members are accessible by the children
+
+// private and protected inheritance is possible, but
+// xxx : private yyy
+// means that all members of yyy became private
+// they are used for implementation details
+// (std::Vector private-inherits from an allocator)
+
+// IS A → : public
+// HAS A → object composition
+// USE A → : protected  /  : private
+
+
 struct Dog : public Animal {
   void speak() const noexcept { std::cout << "Bau\n"; }
   Dog() noexcept = default;
@@ -25,9 +43,17 @@ struct Dog : public Animal {
 
 struct Snake : public Animal {
   bool dangerous;
+
+
+  // Constructors are called from the parent down
+  // (i.e. first the parent - delegated constructor)
+
   Snake(const unsigned int a, const double w, const bool b)
       : Animal{a, w}, dangerous{b} {}
   explicit Snake(const bool b) noexcept : Animal{}, dangerous{b} {}
+
+  // re-implementing the info function
+  // calling the parent's info also
   void info() const noexcept {
     Animal::info();
     std::cout << "dangerous:\t" << (dangerous ? "true" : "false") << std::endl;
@@ -36,6 +62,8 @@ struct Snake : public Animal {
 };
 
 // run-time (dynamic) polymorphism
+// can passo children to a function that expects parents
+// (works only with references and pointers)
 void print_animal(const Animal& a) noexcept {
   std::cout << "through ref\n";
   a.info();

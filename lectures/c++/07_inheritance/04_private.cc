@@ -57,6 +57,12 @@ class NonDangerousSnake : public Snake {
 struct Python : public NonDangerousSnake {};
 
 using Anaconda = DangerousSnake;
+// using is similar to typedef
+// but it is better because it can be templated
+// here we are introducing an alias
+
+// using std::cout --> can write just cout
+// using namespace std --> import all std namespace
 
 void print_animal(const Animal& a) noexcept {
   std::cout << "throught ref\n";

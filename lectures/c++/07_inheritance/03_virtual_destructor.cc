@@ -15,7 +15,8 @@ int main() {
 
   std::cout << "\n\npointers\n";
   Base* p = new Derived;
-  delete p;
+  delete p;  // <-- calling the destructor of base, but not from derived
+             //     one should define the destructor of the base class "virtual"
 
   return 0;
 }
