@@ -30,9 +30,9 @@ int main() {
     std::iota(v.begin(), v.end(), value_type(-1024));
     std::random_shuffle(v.begin(), v.end());
     for (std::size_t i = 0; i < n; ++i)
-      v[i] = int{v[i]} & 255;
+      v[i] = int{v[i]} & 1023;
 
-    // set_instrumented(n,v.begin(),v.end());
+    //set_instrumented(n,v.begin(),v.end());
     vector_instrumented(n, v.begin(), v.end());
   }
 }

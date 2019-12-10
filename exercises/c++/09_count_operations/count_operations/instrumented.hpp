@@ -19,10 +19,21 @@ struct instrumented_base {
   };
 
   static constexpr std::size_t n_ops = 9;
+  // "static" means that the variable is shared by all objects of the same type
+  // this also means that static variables do not add to the size in memory of the class
+  // do NOT mix template & static
+
+  // static variables MUST be defined into separate compilation units
+  // (e.g. hpp files) and then one must link to those units
+  
   static double counts[n_ops];
+
+  // array of strings (faster this way)
   static const char* counter_names[n_ops];
+  
   static void initialize(std::size_t i) {
     std::fill(counts, counts + n_ops, 0.0);
+    //        iterator-first, iterator-one-past-the-last, ...
     counts[n] = i;
   }
   static void print_summary();
@@ -43,6 +54,7 @@ struct instrumented : instrumented_base {
   instrumented(const instrumented<U>& x) : value(x.value) {}
 
   // Semiregular:
+  // must have the following (and so on for regular etc.)
   instrumented(const instrumented& x) : value(x.value) { ++counts[copy_ctor]; }
   instrumented(instrumented&& x) : value{std::move(x)} { ++counts[move_ctor]; }
   instrumented() { ++counts[default_ctor]; }
@@ -60,6 +72,8 @@ struct instrumented : instrumented_base {
     return *this;
   }
 
+
+  
   // Regular
   friend bool operator==(const instrumented& x, const instrumented& y) {
     ++counts[equality];
@@ -68,6 +82,9 @@ struct instrumented : instrumented_base {
   friend bool operator!=(const instrumented& x, const instrumented& y) {
     return !(x == y);
   }
+
+  
+
   // TotallyOrdered
   friend bool operator<(const instrumented& x, const instrumented& y) {
     ++counts[comparison];
