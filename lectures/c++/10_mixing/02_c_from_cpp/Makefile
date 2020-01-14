@@ -4,6 +4,7 @@ EXE = exe
 
 all: $(EXE)
 
+# always use the linker for the language that the "main" was written
 $(EXE): hello.o main.o
 	$(CXX) $^ -o $@
 
