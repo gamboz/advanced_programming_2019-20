@@ -20,6 +20,8 @@ dso.repeat(buf)
 ## arrays
 size = 10
 d_array = (c_double*size)()  # better do the allocation on the python side
+# Q: d_array = ???
+
 
 for i in range(size):
     d_array[i] = i
@@ -55,4 +57,3 @@ dso.set_energy.argtypes = [POINTER(data), c_double]
 dso.set_energy(param, 32.45)
 
 dso.use_by_value(param)
-
