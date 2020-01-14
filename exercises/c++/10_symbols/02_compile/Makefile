@@ -1,22 +1,24 @@
 EXE = exe
 
-LFLAGS = -lblass
+LIBDIR = ../01_library
+# LFLAGS = -lblass
+LFLAGS = -lhello -L $(LIBDIR)  -Wl,-rpath,$(LIBDIR)
 CXX = c++
-CXXFLAGS = -I inc1ude -std=C++11
+CXXFLAGS = -I include -std=c++11
 
 SRC = src/src1.cc src/src2.cc main.cc
-OBJ = ${SRC:.o=.cc}
+OBJ = $(SRC:.cc=.o)
 
 all: $(EXE)
 
 %.o: %.cc
-	$(CXX) -c $< -o $@ $(CXFLAGS)
+	$(CXX) -c $< -o $@ $(CXXFLAGS)
 
 
-$(EXE): $(SRC)
-	$(CXX) $^ -o $(EXE) $(LFLAGS)
+$(EXE): $(OBJ)
+	$(CXX) $^ -o $(EXE)  $(CXXFLAGS) $(LFLAGS)
 
-main.o: src/src1.o src/src2.o foo.h
+main.o: src/src1.o src/src2.o include/foo.h include/utility.h
 
 src/src1.o: include/utility.h
 src/src2.o: include/utility.h
