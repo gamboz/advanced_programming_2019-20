@@ -1,17 +1,22 @@
-CXX = c++
+EXE = pippo
 
-SRC = source/hello.cc
+SRC = source/hello.cc source/main.cc
 OBJ = $(SRC:.cc=.o)
 
-all: libhello.so
+CXX = c++
+CXXFLAGS = -I include -std=c++11
+LDFLAGS = -l hello -L . -Wl,-rpath,.
 
-libhello.so: $(OBJ)
-	$(CXX) -shared -o $@ $^
+all: libhello.so $(EXE)
+
+libhello.so: source/hello.o
+	$(CXX) -shared -o $@ $^ $(CXXFLAGS)
 
 %.o:%.cc
-	$(CXX) -fpic  -o $@ -c $< -Iinclude
+	$(CXX) -fpic  -o $@ -c $< $(CXXFLAGS)
 
-src/hello.o: include/hello.h
+source/hello.o: include/hello.h
+source/main.o: include/hello.h
 
 clean:
 	@rm -f *~ */*~ libhello.so source/*.o
@@ -22,5 +27,7 @@ install: libhello.so
 	@ TERM=xterm-256color echo $(tput setaf 2)"Installing..."$(tput sgr0)
 	@ cp libhello.so /usr/local/include && echo "...done" || echo "...FAILED"
 
+$(EXE): source/main.o libhello.so
+	$(CXX) $(CXXFLAGS) $(LDFLAGS) $^ -o $(EXE)
 
 .PHONY: clean all install
