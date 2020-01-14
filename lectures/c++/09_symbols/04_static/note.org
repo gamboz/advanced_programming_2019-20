@@ -1,0 +1,10 @@
+* static
+
+** external linkage
+for variables or functions
+
+** members variables shared by all objects
+inside a class/struct
+
+** single execution
+inside a function

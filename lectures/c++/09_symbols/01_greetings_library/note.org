@@ -1,0 +1,26 @@
+a library is a collection of symbols
+
+without a "main"
+
+So we cannot compile in the "usual" way
+or the linker will complain that the "main" is missing
+
+TIP separate declaration (.h) from implementation (.cc)
+
+
+libraries: static vs dynamic / shared
+
+two main steps: compile + link
+(each has its own flag)
+
+
+make: each line of a target ("rule") is executed in a separate subshell
+      (for instance, a for-loop must be written in a single line)
+
+make executes the FIRST rule
+
+TIP: do not do globbing
+
+$@ is the name of the target
+$^ is the name of the dependencies (all of them)
+% is the wildcard

@@ -1,7 +1,7 @@
 EXE = ap
 GDIR=../01_greetings_library
 
-LDFLAGS = -lgreetings -L $(GDIR)
+LDFLAGS = -lgreetings -L $(GDIR) -Wl,-rpath,$(GDIR)
 CXX = c++
 CXXFLAGS = -I include -I $(GDIR)/include -std=c++11
 
@@ -27,5 +27,3 @@ clean:
 	rm -rf src/*.o *.o $(EXE) */*~ *~ a.out*
 
 .PHONY: clean all format
-
-

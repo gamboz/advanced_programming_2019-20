@@ -1,5 +1,5 @@
 CXX = c++
-LANG = ENGLISH
+LANG = ITALIANO
 
 SRC = src/greetings.cc src/conclusion.cc
 OBJ = $(SRC:.cc=.o)
