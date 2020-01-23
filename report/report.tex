@@ -1,0 +1,168 @@
+\documentclass[a4paper,11pt]{article}
+\usepackage{jhep}
+\usepackage{wrapfig}
+\usepackage{tikz}
+%% \usetikzlibrary{trees}
+
+\addtolength{\textwidth}{1in}
+\addtolength{\textheight}{1in}
+\parindent=0pt
+%\setlength{\parskip}{\bigskip}
+%\let\parskip\bigskip
+%\parskip=\bigskip
+\setlength{\parskip}{1ex plus 1ex}
+
+\usepackage{smartdiagram}
+
+\definecolor{mathorange}{HTML}{F68B1F}
+\definecolor{mathgreen}{HTML}{2D532A}
+
+\hypersetup{urlcolor=mathgreen}
+
+\usepackage{forest}
+\usetikzlibrary{arrows.meta}
+\forestset{
+  dir tree/.style={
+    for tree={
+      parent anchor=south west,
+      child anchor=west,
+      anchor=mid west,
+      inner ysep=1pt,
+      grow'=0,
+      align=left,
+      edge path={
+        \noexpand\path [draw, \forestoption{edge}] (!u.parent anchor) ++(1em,0) |- (.child anchor)\forestoption{edge label};
+      },
+      font=\sffamily,
+      if n children=0{}{
+        delay={
+          prepend={[,phantom, calign with current]}
+        }
+      },
+      fit=band,
+      before computing xy={
+        l=2em
+      }
+    },
+  }
+}
+
+
+\begin{document}
+\pagestyle{empty}
+
+\textbf{\color{mathorange}\sffamily\LARGE Advanced Programming 2019/20}
+
+\bigskip
+
+\begin{wrapfigure}{r}{136pt}
+  \tiny
+\begin{forest}
+  dir tree
+[ \href{https://github.com/asartori86/advanced_programming_2019-20}{adv. prog. 2019/20}
+  [ lectures
+    [ c++
+      [ 01 intro ]
+      [ 02 functions and arrays ]
+      [ 03 more on pointers and vectors ]
+      [ 04 custom types ]
+      [ 05 copy move semantics ]
+      [ 06 error handling ]
+      [ 07 inheritance ]
+      [ 08 STL ]
+      [ 09 symbols ]
+      [ 10 mixing ]
+    ]
+    [ python
+      [ 01 intro ]
+      [ 02 variables and functions ]
+      [ 03 advanced topics ]
+    ]
+  ]
+  [ exercises
+    [ c++
+      [ 01 intro ]
+      %% [ \dots ]
+      [ 02 arrays ]
+      [ 03 arrays and vectors ]
+      [ 04 custom types ]
+      [ 05 copy move ]
+      [ 06 linked list ]
+      [ 07 vector ]
+      [ 08 generic programming ]
+      [ 09 count operations ]
+      [ 10 symbols ]
+    ]
+    [ python
+      %% [ \dots ]
+      [ 01 intro ]
+      [ 02 modules and classes ]
+      [ 03 advanced ]
+    ]
+  ]
+  [ exam ]
+]
+\end{forest}
+\end{wrapfigure}
+
+Impressions on the
+\href{https://www.math.sissa.it/course/phd-course-master-course/advanced-programming-1}
+     {Sissa course} on C++ and Python.
+
+The course covered concepts and syntax of C, C++ and python and how to
+mix the three languages, with references to auxiliary tools such as
+git and make and best practices, such as never use magic numbers
+(always define variables), divide code into simple functions and, in
+general, ``think''.
+
+On the right, there is an outline of the git repository used, which
+also reflects the course structure.
+
+The course consisted of interactive frontal lessons. I've found it
+very useful that the teacher wrote code on the fly in answer to
+students' questions or to explore curious case (for instance the use
+of templates in headers and the order of linking to produce different
+behaviors). We (the students) had access to the same code and could
+also edit and tweak what we found difficult.  One lessons every two or
+tree was dedicated to supervised exercises.
+
+Other themes have been discussed:
+% that go under the umbrella of ``best practices'':\\
+
+\smartdiagramset{
+  uniform color list=mathorange!80!white for 4 items,
+  description title font=\sffamily\color{mathgreen},
+  description title width=11ex}
+\smartdiagram[descriptive diagram]{
+  {concepts,
+    compilation vs.\ linking},
+  %
+  {make files,
+    syntax and tricks},
+  %
+  {git,
+    basic modus operandi},
+  %
+  {misc.,
+    {stl, clang-format, jupyter lab}},
+}
+
+\bigskip
+What I personally appreciated most was the precision and depth of the
+discussion (for instance, we saw some of the differences between c++
+11 and 17 or some corner cases of python behavior when mixing mutable
+and non-mutable types) and the no non-sense approach to the tools
+(git, make \& co.). For instance, we have been invited to fork the
+teacher's git repo.\ and work on our copy, merging the new code that
+the teacher pushed to his repository before each lesson. This simple
+procedure let us gain confidence with git.
+
+Also, I think I finally understood the cause of some compilation and
+linking problems that I've met in the years, and, in general, how
+shared libraries and object files are structured.
+%what the (for me) mystic ``symbols'' are.
+
+\begin{flushright}
+\scriptsize  mg Jan.\ 2020
+\end{flushright}
+\end{document}
